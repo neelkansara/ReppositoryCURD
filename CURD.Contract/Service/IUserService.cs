@@ -9,6 +9,7 @@ namespace CURD.Contract.Service
 {
     public interface IUserService
     {
+        void Update(tbl_User user);
         tbl_User CreateUser(tbl_User user);
         
             tbl_User GetUser(long id);

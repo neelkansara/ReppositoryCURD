@@ -59,5 +59,14 @@ namespace CURD.Service
                 return unitOfWork.UserRepository.Login(email,password);
             }
         }
+
+       public  void Update(tbl_User user)
+        {
+            using (var unitOfWork = new UnitOfWork())
+            {
+                unitOfWork.UserRepository.Update(user);
+                unitOfWork.UserRepository.Save();
+            }
+        }
     }
 }

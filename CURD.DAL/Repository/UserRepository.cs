@@ -18,12 +18,12 @@ namespace CURD.DAL.Repository
 
         public tbl_User GetActiveUser(long id)
         {
-            return _context.tbl_User.Where(x => x.userid == id && x.isactivated==true).SingleOrDefault();
+            return _context.tbl_User.Where(x => x.userid == id && x.isactivated!=false).SingleOrDefault();
         }
 
         public List<tbl_User> GetAllActiveUserByRole(int roleId)
         {
-            return _context.tbl_User.Where(x=>x.isactivated==true).ToList();
+            return _context.tbl_User.Where(x=>x.isactivated != false).ToList();
         }
 
         public List<tbl_User> GetAllUserByRole(int roleId)

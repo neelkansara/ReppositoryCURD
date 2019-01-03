@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CURD.DAL", "CURD.DAL\CURD.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CURD.Service", "CURD.Service\CURD.Service.csproj", "{C272F99D-A204-4D9C-AD4C-FAD58D799185}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CURDWeb", "CURDWeb\CURDWeb.csproj", "{D853FEE0-247A-4E8E-A91E-6135436D7710}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{C272F99D-A204-4D9C-AD4C-FAD58D799185}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C272F99D-A204-4D9C-AD4C-FAD58D799185}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C272F99D-A204-4D9C-AD4C-FAD58D799185}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D853FEE0-247A-4E8E-A91E-6135436D7710}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D853FEE0-247A-4E8E-A91E-6135436D7710}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D853FEE0-247A-4E8E-A91E-6135436D7710}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D853FEE0-247A-4E8E-A91E-6135436D7710}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

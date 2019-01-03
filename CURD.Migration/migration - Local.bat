@@ -1,2 +1,2 @@
-..\packages\FluentMigrator.1.6.2\tools\Migrate.exe /connection "Data Source=DESKTOP-CKO024B;Initial Catalog=testdb_1;UID=sa;PWD=ifour@1234;" /db sqlserver2008 /target .\bin\Debug\CURD.Migration.dll /t migrate:up
+..\packages\FluentMigrator.1.6.2\tools\Migrate.exe /connection "Data Source=IFOUR-04\SQLEXPRESS;Initial Catalog=testdb_1;UID=sa;PWD=ifour@1234;" /db sqlserver2008 /target .\bin\Debug\CURD.Migration.dll /t migrate:up
 pause

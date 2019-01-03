@@ -1,0 +1,188 @@
+﻿@model CURD.Business.Models.UserViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" /> 
+</head>
+<body>
+    <div class="container">
+        <h2>Employees Record</h2>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="cleartext();">Add New Employee</button><br /><br />
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        First name
+                    </th>
+                    <th>
+                        Last Name
+                    </th>
+                    <th>
+                        Mobile
+                    </th>
+                
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tbody"></tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Add Employee</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            @Html.HiddenFor(m=>m.userid)
+                            <label for="Email">Email</label>
+                            @Html.TextBoxFor(m=>m.email,new { type = "text" ,@class="form-control" ,placeholder = "Email" })
+                            @Html.ValidationMessageFor(m => m.email)
+                        </div>
+                        <div class="form-group">
+                            <label for="FirstName">First Name</label>
+                            @Html.TextBoxFor(m => m.firstname, new { type = "text", @class = "form-control", placeholder = "First Name" })
+                            @Html.ValidationMessageFor(m => m.firstname)
+                        </div>
+                        <div class="form-group">
+                            <label for="LastName">Last Name</label>
+                            @Html.TextBoxFor(m => m.lastname, new { type = "text", @class = "form-control", placeholder = "Last Name" })
+                            @Html.ValidationMessageFor(m => m.lastname)
+                        </div>
+                        <div class="form-group">
+                            <label for="Password">Password</label>
+                            @Html.TextBoxFor(m => m.password, new { type = "password", @class = "form-control", placeholder = "Password" })
+                            @Html.ValidationMessageFor(m => m.password)
+                        </div>
+                        <div class="form-group">
+                            <label for="Mobile">Mobile</label>
+                            @Html.TextBoxFor(m => m.mobile, new { type = "text", @class = "form-control", placeholder = "Mobile" })
+                            @Html.ValidationMessageFor(m => m.mobile)
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Add</button>
+                    <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Add();">Update</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clear();">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <script>
+        $(document).ready(function () {
+            loadData();
+        });
+
+        function cleartext()
+        {
+            $('#userid').val('');
+            $('#email').val('');
+            $('#firstname').val('');
+            $('#lastname').val('');
+            $('#mobile').val('');
+        }
+        function loadData() {
+            $.ajax({
+                url: "/Account/List",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    var html = '';
+                    $.each(result, function (key, item) {
+                        html += '<tr>';
+                        html += '<td>' + item.email + '</td>';
+                        html += '<td>' + item.firstname + '</td>';
+                        html += '<td>' + item.lastname + '</td>';
+                        html += '<td>' + item.mobile + '</td>';
+                        html += '<td><a href="#" onclick="return getbyID(' + item.userid + ')">Edit</a> | <a href="#" onclick="Delele(' + item.userid + ')">Delete</a></td>';
+                        html += '</tr>';
+                    });
+                    $('.tbody').html(html);
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+
+        function Add() {
+            //var res = validate();
+            //if (res == false) {
+            //    return false;
+            //}
+            var user = {
+                userid: $('#userid').val(),
+                email: $('#email').val(),
+                firstname: $('#firstname').val(),
+                lastname: $('#lastname').val(),
+                mobile: $('#mobile').val(),
+                
+                password: $('#password').val()
+            };
+            $.ajax({
+                url: "/Account/Add",
+                data: JSON.stringify(user),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    loadData();
+                    $('#myModal').modal('hide');
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+
+        function getbyID(id) {
+            $('#Name').css('border-color', 'lightgrey');
+            $('#Age').css('border-color', 'lightgrey');
+            $('#State').css('border-color', 'lightgrey');
+            $('#Country').css('border-color', 'lightgrey');
+            $.ajax({
+                url: "/Account/UserById/" + id,
+                typr: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    $('#userid').val(result.userid);
+                    $('#email').val(result.email);
+                    $('#firstname').val(result.firstname);
+                    $('#lastname').val(result.lastname);
+                    $('#mobile').val(result.mobile);
+                    
+
+                    $('#myModal').modal('show');
+                    $('#btnUpdate').show();
+                    $('#btnAdd').hide();
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+            return false;
+        }
+    </script>
+</body>
+
+</html>

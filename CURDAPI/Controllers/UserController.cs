@@ -125,5 +125,26 @@ namespace CURDAPI.Controllers
                 return output;
             }
         }
+
+        [Route("Update")]
+        public async Task<object> Put(tbl_User user)
+        {
+            var output = new ResponseDetail();
+            try
+            {
+               _userService.Update(user);
+                var userDetail = _userService.GetActiveUser(user.userid);
+               output.Data = userDetail;
+                output.Success = true;
+                output.Message = "User Updated.";
+                return output;
+            }
+            catch (Exception ex)
+            {
+                output.Message = ex.Message;
+                output.Success = false;
+                return output;
+            }
+        }
     }
 }
